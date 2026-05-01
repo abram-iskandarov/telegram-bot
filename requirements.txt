@@ -1,1 +1,1 @@
-pytelegrambotapigroq
+pyTelegramBotAPIgroq
