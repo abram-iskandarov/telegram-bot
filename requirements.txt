@@ -1,5 +1,4 @@
 pyTelegramBotAPI
 groq
 requests
-datetime
 pytz
