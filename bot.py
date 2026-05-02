@@ -21,7 +21,7 @@ def main_menu():
 
 @bot.message_handler(commands=['start'])
 def start(message):
-    bot.reply_to(message, "Salom! 👋 Men Abram tomonidan yaratilgan sizni shaxsiy AI botiman!\nQuyidagi tugmalardan foydalaning:", reply_markup=main_menu())
+    bot.reply_to(message, "Salom! 👋 Men Abramning shaxsiy AI botiman!\nQuyidagi tugmalardan foydalaning:", reply_markup=main_menu())
     if message.chat.id != ADMIN_ID:
         bot.send_message(ADMIN_ID, f"🆕 Yangi foydalanuvchi: {message.from_user.first_name} (@{message.from_user.username})")
 
@@ -89,8 +89,7 @@ def handle(message):
             model="llama-3.3-70b-versatile",
             messages=[
                 {"role": "system", "content": "Siz Abram Iskandarov yaratgan shaxsiy AI assistantsiz. Hech qachon boshqa kompaniya yaratgan dema. O'zbek tilida, qisqa va aniq javob ber."},
-                *chat_histories[user_id]
-[02.05.2026 7:57] Abram: ]
+                *chat_histories[user_id]]
         )
         reply = response.choices[0].message.content
         chat_histories[user_id].append({"role": "assistant", "content": reply})
