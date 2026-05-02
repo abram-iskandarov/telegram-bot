@@ -48,7 +48,7 @@ def havo(message):
 def havo_shahar(message):
     shahar = message.text
     try:
-        url = f"https://wttr.in/{shahar}?format=3"
+        url = f"https://wttr.in/{shahar}?format=3&m"
         r = requests.get(url)
         bot.reply_to(message, f"🌤️ {r.text}", reply_markup=main_menu())
     except:
