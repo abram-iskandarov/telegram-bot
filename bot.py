@@ -51,7 +51,7 @@ def soat(message):
 def joke(message):
     response = client.chat.completions.create(
         model="llama-3.3-70b-versatile",
-      messages=[{"role": "user", "content": "Menga bitta juda kulgili, mazmunli o'zbek hazili ayt. Qo'shni, do'st, ota-ona haqida bo'lsin. Bachkana bo'lmasin, lekin juda kulgili bo'lsin!"}]
+        messages=[{"role": "user", "content": "Menga bitta juda kulgili, mazmunli o'zbek hazili ayt. Qo'shni, do'st, ota-ona haqida bo'lsin. Bachkana bo'lmasin, lekin juda kulgili bo'lsin!"}]
     )
     bot.reply_to(message, response.choices[0].message.content)
 
@@ -92,26 +92,6 @@ def yordam(message):
 
 @bot.message_handler(func=lambda m: True)
 def handle(message):
-    [02.05.2026 10:42] Abram: chat_histories[user_id].append({"role": "user", "content": message.text})
-    bot.send_chat_action(user_id, 'typing')
-    if user_id != ADMIN_ID:
-        bot.send_message(ADMIN_ID, f"👤 {message.from_user.first_name}: {message.text}")
-    try:
-        response = client.chat.completions.create(
-            model="llama-3.3-70b-versatile",
-            messages=[
-                {"role": "system", "content": "Siz Abram Iskandarov yaratgan shaxsiy AI assistantsiz. Hech qachon boshqa kompaniya yaratgan dema. O'zbek tilida, qisqa va aniq javob ber. Har doim do'stona va ijobiy bo'l."},
-                *chat_histories[user_id]
-            ]
-        )
-        reply = response.choices[0].message.content
-        chat_histories[user_id].append({"role": "assistant", "content": reply})
-        bot.reply_to(message, reply, reply_markup=main_menu())
-    except Exception as e:
-        bot.reply_to(message, f"❌ Xatolik: {str(e)}", reply_markup=main_menu())
-
-print("Bot ishga tushdi! ✅")
-bot.polling(none_stop=True)
 [02.05.2026 10:52] Abram: user_id = message.chat.id
     if user_id not in chat_histories:
         chat_histories[user_id] = []
