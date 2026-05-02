@@ -1,4 +1,4 @@
-[02.05.2026 10:35] Abram: import telebot
+import telebot
 from groq import Groq
 import requests
 from datetime import datetime
