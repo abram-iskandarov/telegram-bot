@@ -51,7 +51,7 @@ def soat(message):
 def joke(message):
     response = client.chat.completions.create(
         model="llama-3.3-70b-versatile",
-        messages=[{"role": "user", "content": "Menga bitta qisqa kulgili o'zbek hazili ayt"}]
+        messages=[{"role": "user", "content": "Menga bitta juda kulgili, mazmunli o'zbek hazili ayt. Qo'shni, do'st, ota-ona haqida bo'lsin. Bachkana bo'lmasin, lekin juda kulgili bo'lsin!"}]
     )
     bot.reply_to(message, response.choices[0].message.content)
 
