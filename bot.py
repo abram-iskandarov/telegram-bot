@@ -48,12 +48,12 @@ def start(message):
         user_stats[user_id] = {"name": message.from_user.first_name, "messages": 0}
     bot.reply_to(message, f"Salom, {message.from_user.first_name}! 👋\nMen Abramning shaxsiy AI botiman!\n\nQuyidagi tugmalardan foydalaning 👇", reply_markup=main_menu())
     if user_id != ADMIN_ID:
-        bot.send_message(ADMIN_ID, f"🆕 Yangi foydalanuvchi: {message.from_user.first_name} (@{message.from_user.username})\nID: {user_id}")
+        bot.send_message(ADMIN_ID, f"🆕 Yangi foydalanuvchi: {message.from_user.first_name} (@{message.from_user.username})")
 
 @bot.message_handler(commands=['stats'])
 def stats(message):
     if message.chat.id == ADMIN_ID:
-        bot.reply_to(message, f"📊 Statistika:\nJami foydalanuvchilar: {len(user_stats)} ta")
+        bot.reply_to(message, f"📊 Jami foydalanuvchilar: {len(user_stats)} ta")
 
 @bot.message_handler(func=lambda m: m.text == "🔙 Orqaga")
 def orqaga(message):
@@ -71,28 +71,28 @@ def soat(message):
 @bot.message_handler(func=lambda m: m.text == "😄 Hazil")
 def joke(message):
     bot.send_chat_action(message.chat.id, 'typing')
-    bot.reply_to(message, ai("Menga bitta JUDA kulgili, original o'zbek hazili ayt. Qo'shni, do'st, talaba, bozor haqida bo'lsin. Bachkana bo'lmasin, lekin juda-juda kulgili bo'lsin! Kamida 3-4 jumlali bo'lsin."))
+    bot.reply_to(message, ai("Menga bitta JUDA kulgili, original o'zbek hazili ayt. Qo'shni, do'st, talaba haqida bo'lsin. Bachkana bo'lmasin, juda kulgili bo'lsin!"))
 
 @bot.message_handler(func=lambda m: m.text == "🌤️ Ob-havo")
 def havo(message):
-    bot.reply_to(message, "🗺️ Qaysi viloyat ob-havosini bilmoqchisiz?", reply_markup=viloyatlar_menu())
+    bot.reply_to(message, "🗺️ Qaysi viloyat?", reply_markup=viloyatlar_menu())
 
 @bot.message_handler(func=lambda m: m.text in ["Toshkent", "Samarqand", "Buxoro", "Namangan", "Andijon", "Farg'ona", "Qashqadaryo", "Surxondaryo", "Jizzax", "Sirdaryo", "Xorazm", "Navoiy"])
 def havo_viloyat(message):
     try:
         url = f"https://wttr.in/{message.text}?format=3&m"
         r = requests.get(url, timeout=5)
-        bot.reply_to(message, f"🌤️ {message.text} ob-havosi:\n{r.text}", reply_markup=viloyatlar_menu())
+        bot.reply_to(message, f"🌤️ {message.text}:\n{r.text}", reply_markup=viloyatlar_menu())
     except:
-        bot.reply_to(message, "❌ Ob-havo ma'lumotini ololmadim, qayta urining!", reply_markup=main_menu())
+        bot.reply_to(message, "❌ Xatolik!", reply_markup=main_menu())
 
 @bot.message_handler(func=lambda m: m.text == "🌐 Tarjima")
 def tarjima(message):
     bot.reply_to(message, "✍️ Tarjima qilmoqchi bo'lgan matnni yozing:")
     bot.register_next_step_handler(message, tarjima_text)
-[03.05.2026 14:34] Abram: def tarjima_text(message):
+[03.05.2026 14:47] Abram: def tarjima_text(message):
     bot.send_chat_action(message.chat.id, 'typing')
-    bot.reply_to(message, ai(f"Shu matnni ingliz tiliga tarjima qil va tarjimani tushuntir: {message.text}"), reply_markup=main_menu())
+    bot.reply_to(message, ai(f"Shu matnni ingliz tiliga tarjima qil: {message.text}"), reply_markup=main_menu())
 
 @bot.message_handler(func=lambda m: m.text == "💰 Valyuta")
 def valyuta(message):
@@ -103,7 +103,7 @@ def valyuta(message):
         eur = next(x for x in data if x["Ccy"] == "EUR")
         rub = next(x for x in data if x["Ccy"] == "RUB")
         gbp = next(x for x in data if x["Ccy"] == "GBP")
-        bot.reply_to(message, f"💰 Bugungi valyuta kurslari:\n\n🇺🇸 1 USD = {float(usd['Rate']):,.0f} so'm\n🇪🇺 1 EUR = {float(eur['Rate']):,.0f} so'm\n🇷🇺 1 RUB = {float(rub['Rate']):.2f} so'm\n🇬🇧 1 GBP = {float(gbp['Rate']):,.0f} so'm\n\n📅 Manba: Markaziy Bank")
+        bot.reply_to(message, f"💰 Valyuta kurslari:\n\n🇺🇸 1 USD = {float(usd['Rate']):,.0f} so'm\n🇪🇺 1 EUR = {float(eur['Rate']):,.0f} so'm\n🇷🇺 1 RUB = {float(rub['Rate']):.2f} so'm\n🇬🇧 1 GBP = {float(gbp['Rate']):,.0f} so'm")
     except:
         bot.reply_to(message, "❌ Valyuta ma'lumotini ololmadim!")
 
@@ -114,44 +114,43 @@ def retsept(message):
 
 def retsept_text(message):
     bot.send_chat_action(message.chat.id, 'typing')
-    bot.reply_to(message, ai(f"{message.text} taomining to'liq retseptini yoz. Ingredientlar va tayyorlash usulini batafsil ko'rsat."), reply_markup=main_menu())
+    bot.reply_to(message, ai(f"{message.text} taomining to'liq retseptini yoz."), reply_markup=main_menu())
 
 @bot.message_handler(func=lambda m: m.text == "💪 Motivatsiya")
 def motivatsiya(message):
     bot.send_chat_action(message.chat.id, 'typing')
-    bot.reply_to(message, ai("Menga juda kuchli, ilhomlantiruvchi motivatsion ibora yoki qisqa hikoya ayt. O'zbek tilida, yurak to'ldiradigan bo'lsin!"))
+    bot.reply_to(message, ai("Juda kuchli motivatsion ibora yoki qisqa hikoya ayt. O'zbek tilida, ilhomlantiruvchi bo'lsin!"))
 
 @bot.message_handler(func=lambda m: m.text == "🎮 Viktorina")
 def viktorina(message):
     bot.send_chat_action(message.chat.id, 'typing')
-    savol = ai("Menga qiziqarli viktorina savoli ber. Savol va 4 ta variant (A, B, C, D) ko'rsat. To'g'ri javobni ham ayt. O'zbek tilida bo'lsin.")
-    bot.reply_to(message, f"🎮 Viktorina!\n\n{savol}")
+    bot.reply_to(message, ai("Qiziqarli viktorina savoli ber. 4 ta variant (A,B,C,D) va to'g'ri javob. O'zbek tilida."))
 
 @bot.message_handler(func=lambda m: m.text == "📰 Yangiliklar")
 def yangiliklar(message):
     bot.send_chat_action(message.chat.id, 'typing')
-    bot.reply_to(message, ai("O'zbekiston va dunyo bo'yicha 5 ta muhim yangilik haqida qisqacha ma'lumot ber. Har birini raqam bilan boshla."))
+    bot.reply_to(message, ai("O'zbekiston va dunyo bo'yicha 5 ta muhim yangilik haqida qisqacha ma'lumot ber."))
 
 @bot.message_handler(func=lambda m: m.text == "🧮 Kalkulyator")
 def kalkulyator(message):
-    bot.reply_to(message, "🧮 Hisoblash uchun masala yozing!\nMasalan: 25 * 4 + 10")
+    bot.reply_to(message, "🧮 Masala yozing! Masalan: 25 * 4 + 10")
     bot.register_next_step_handler(message, kalkulyator_hisob)
 
 def kalkulyator_hisob(message):
     try:
         natija = eval(message.text)
-        bot.reply_to(message, f"🧮 Natija: {message.text} = {natija}", reply_markup=main_menu())
+        bot.reply_to(message, f"🧮 {message.text} = {natija}", reply_markup=main_menu())
     except:
-        bot.reply_to(message, "❌ Noto'g'ri format! Masalan: 25 * 4 + 10", reply_markup=main_menu())
+        bot.reply_to(message, "❌ Noto'g'ri format!", reply_markup=main_menu())
 
 @bot.message_handler(func=lambda m: m.text == "🗑️ Tarixni tozala")
 def clear(message):
     chat_histories[message.chat.id] = []
-    bot.reply_to(message, "✅ Suhbat tarixi tozalandi!", reply_markup=main_menu())
+    bot.reply_to(message, "✅ Tozalandi!", reply_markup=main_menu())
 
 @bot.message_handler(func=lambda m: m.text == "ℹ️ Yordam")
 def yordam(message):
-    bot.reply_to(message, "🤖 Men Abram Iskandarov yaratgan AI botiman!\n\n✅ Nima qila olaman:\n• Savollaringizga javob beraman\n• Ob-havo ma'lumoti\n• Valyuta kurslari\n• Tarjima\n• Retsept\n• Hazil\n• Motivatsiya\n• Viktorina\n• Kalkulyator\n\nIstalgan savol yozing! 😊", reply_markup=main_menu())
+    bot.reply_to(message, "🤖 Men Abram Iskandarov yaratgan AI botiman!\nIstalgan savol yozing!", reply_markup=main_menu())
 
 @bot.message_handler(func=lambda m: True)
 def handle(message):
@@ -161,7 +160,7 @@ def handle(message):
     if user_id not in user_stats:
         user_stats[user_id] = {"name": message.from_user.first_name, "messages": 0}
     user_stats[user_id]["messages"] += 1
-[03.05.2026 14:34] Abram: chat_histories[user_id].append({"role": "user", "content": message.text})
+    chat_histories[user_id].append({"role": "user", "content": message.text})
     bot.send_chat_action(user_id, 'typing')
     if user_id != ADMIN_ID:
         bot.send_message(ADMIN_ID, f"👤 {message.from_user.first_name}: {message.text}")
@@ -169,8 +168,8 @@ def handle(message):
         response = client.chat.completions.create(
             model="llama-3.3-70b-versatile",
             messages=[
-                {"role": "system", "content": "Siz Abram Iskandarov yaratgan shaxsiy AI assistantsiz. Hech qachon boshqa kompaniya yaratgan dema. O'zbek tilida, qisqa va aniq javob ber. Har doim do'stona va ijobiy bo'l."},
-                *chat_histories[user_id]
+                {"role": "system", "content": "Siz Abram Iskandarov yaratgan shaxsiy AI assistantsiz. Hech qachon boshqa kompaniya yaratgan dema. O'zbek tilida, qisqa va aniq javob ber."},
+[03.05.2026 14:47] Abram: *chat_histories[user_id]
             ]
         )
         reply = response.choices[0].message.content
