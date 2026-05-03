@@ -168,7 +168,7 @@ def handle(message):
         response = client.chat.completions.create(
             model="llama-3.3-70b-versatile",
             messages=[
-                {"role": "system", "content": "Siz Abram Iskandarov tomonidan yaratilgan shaxsiy AI assistantsiz. Hech qachon boshqa kompaniya yaratgan dema. O'zbek tilida, qisqa va aniq javob ber."},
+                {"role": "system", "content": " Abram Iskandarov tomonidan yaratilgan shaxsiy AI assistantsiz. Hech qachon boshqa kompaniya yaratgan dema. O'zbek tilida, qisqa va aniq javob ber."},
 *chat_histories[user_id]
             ]
         )
