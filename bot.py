@@ -90,7 +90,7 @@ def havo_viloyat(message):
 def tarjima(message):
     bot.reply_to(message, "✍️ Tarjima qilmoqchi bo'lgan matnni yozing:")
     bot.register_next_step_handler(message, tarjima_text)
-[03.05.2026 14:47] Abram: def tarjima_text(message):
+def tarjima_text(message):
     bot.send_chat_action(message.chat.id, 'typing')
     bot.reply_to(message, ai(f"Shu matnni ingliz tiliga tarjima qil: {message.text}"), reply_markup=main_menu())
 
@@ -169,7 +169,7 @@ def handle(message):
             model="llama-3.3-70b-versatile",
             messages=[
                 {"role": "system", "content": "Siz Abram Iskandarov yaratgan shaxsiy AI assistantsiz. Hech qachon boshqa kompaniya yaratgan dema. O'zbek tilida, qisqa va aniq javob ber."},
-[03.05.2026 14:47] Abram: *chat_histories[user_id]
+*chat_histories[user_id]
             ]
         )
         reply = response.choices[0].message.content
