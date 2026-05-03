@@ -150,7 +150,7 @@ def clear(message):
 
 @bot.message_handler(func=lambda m: m.text == "ℹ️ Yordam")
 def yordam(message):
-    bot.reply_to(message, "🤖 Men Abram Iskandarov yaratgan AI botiman!\nIstalgan savol yozing!", reply_markup=main_menu())
+    bot.reply_to(message, "🤖 Men Abram Iskandarov tomonidan yaratilgangan sizni shaxsiy AI botingizman!\nIstalgan savol yozing!", reply_markup=main_menu())
 
 @bot.message_handler(func=lambda m: True)
 def handle(message):
@@ -168,7 +168,7 @@ def handle(message):
         response = client.chat.completions.create(
             model="llama-3.3-70b-versatile",
             messages=[
-                {"role": "system", "content": "Siz Abram Iskandarov yaratgan shaxsiy AI assistantsiz. Hech qachon boshqa kompaniya yaratgan dema. O'zbek tilida, qisqa va aniq javob ber."},
+                {"role": "system", "content": "Men Abram Iskandarov tomonidan yaratilganman. Hech qachon boshqa kompaniya yaratgan dema. O'zbek tilida, qisqa va aniq javob ber."},
 *chat_histories[user_id]
             ]
         )
