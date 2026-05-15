@@ -1,3 +1,4 @@
+import os
 import telebot
 from groq import Groq
 import requests
@@ -5,7 +6,7 @@ from datetime import datetime
 import pytz
 
 TELEGRAM_TOKEN = "8902131930:AAEB00Q9gYBLw55e6FcRWrHj7k2PkUiid2Q"
-GROQ_API_KEY = "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"
+GROQ_API_KEY = os.environ.get("GROQ_API_KEY")
 ADMIN_ID = 8035311840
 
 bot = telebot.TeleBot(TELEGRAM_TOKEN)
